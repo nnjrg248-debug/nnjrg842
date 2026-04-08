@@ -1,0 +1,16 @@
+<div style="background-color: #fff0f5; border: 1px solid #ffb6c1; border-radius: 8px; padding: 20px; margin-top: 30px; min-height: 100px; color: #d87093;">
+    {% verbatim %}{% include 'htmlファイル名'%}{% endverbatim %} とすることで「htmlファイル名」のhtmlを挿入できる
+   
+    {%comment%}
+    
+        {% verbatim %}～エスケープされないとエラーとなる文字～{% endverbatim %}
+        はエスケープ処理に使われる
+         {% include 'htmlファイル名'%}はプログラム文字と解釈されるが表示したいだけなのでエスケープ処理の必要なので
+
+         ちなみに 現在囲っている %comment%～%endcomment%({}を付けたらエラーになるので取っている) 
+         は文字を表示させたくないときに使う
+    
+    
+    
+    {%endcomment%}
+</div>
