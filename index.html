@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSV Cleaner Tool</title>
+
+    <!-- 🔥 正しい CDN（これが重要） -->
+    <script src="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.50.0/dist/stlite.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      stlite.mount(`
+import streamlit as st
+
+st.title("🧼 CSVクリーナー (ブラウザ完結版)")
+st.caption("※データは外部サーバーに送信されず、利用者のPC内だけで安全に処理されます。")
+
+input_text = st.text_area("ここに整形したいテキスト（カンマや改行区切り）を入力してください", height=150)
+option = st.radio("整形アクションを選択:", ["重複を削除する", "カンマ区切りに変換", "前後にクォーテーション(')を付ける"])
+
+if st.button("データ整形を実行"):
+    if input_text:
+        lines = [line.strip() for line in input_text.splitlines() if line.strip()]
+
+        if option == "重複を削除する":
+            result_list = list(dict.fromkeys(lines))
+            result_text = "\\n".join(result_list)
+        elif option == "カンマ区切りに変換":
+            result_text = ", ".join(lines)
+        elif option == "前後にクォーテーション(')を付ける":
+            result_text = ", ".join([f"'{line}'" for line in lines])
+
+        st.subheader("✨ 整形結果")
+        st.code(result_text)
+    else:
+        st.warning("テキストを入力してください。")
+`, document.getElementById("root"));
+    </script>
+  </body>
+</html>
